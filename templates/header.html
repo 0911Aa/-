@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全家大湾</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        body{background-color: white}
+        html {
+            background-color: white;
+        }
+
+        .head {
+            width: 100%;
+            height: 60px;
+            background-color: #2459a2;
+        }
+        .head-content{
+            width: 1016px;
+            /*background-color: darkgoldenrod;*/
+            line-height: 60px;
+            /*通过设置margin让这个盒子在父盒子居中*/
+            margin: 0 auto;
+            /*border: white solid 1px;*/
+
+        }
+        .head-content .logo{
+            /*设置成inline-block可以设置a标签的长宽*/
+            display: inline-block;
+            /*设置背景图片*/
+            background: url("/static/images/logo/logo.png");
+            width: 121px;
+            height: 60px;
+            float: left;
+            /*居中用margin调一下*/
+            {#margin-top: 11px;#}
+        }
+        .head-content .action-menu{
+            display: inline-block;
+            float: left;
+            margin-left: 100px;
+        }
+
+        .head-content .action-menu a{
+            text-decoration: none;
+            display: inline-block;
+            float: left;
+            color: #d1d1d1;
+            padding: 0 16px 0 13px;
+            /*background-color: brown;*/
+            /*margin-left: -3px;*/
+            /*border: 1px white solid;*/
+
+        }
+        /*悬浮状态设置*/
+        .head-content .action-menu a.a:hover{
+            background-color: #5689ff;
+            color: white;
+        }
+
+        .head-content .action-menu a.active,.head-content .action-menu a.active:hover{
+            color: white;
+            background-color: #173896;
+        }
+
+
+        {#----------------------head部分结束----------------#}
+
+        img { border: 0; vertical-align: top; }
+        ul, li { list-style: none; }
+
+        .shutter {
+            overflow: hidden;
+            width: 100%;
+            height: 358px;
+            position: relative;
+            margin: 0px auto;
+            {#border-radius: 10px;#}
+
+        }
+        .shutter-img {
+          z-index: 1;
+        }
+        .shutter-img,
+        .shutter-img a {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+        }
+        .shutter-img a {
+          cursor: default;
+        }
+        .shutter-img a > img {
+          width: 100%;
+          height: 100%;
+        }
+        .shutter-img .created {
+          overflow: hidden;
+          position: absolute;
+          z-index: 20;
+        }
+        .shutter-btn {}
+        .shutter-btn li {
+          position: absolute;
+          z-index: 2;
+          top: 50%;
+          width: 49px;
+          height: 49px;
+          margin-top: -25px;
+          cursor: pointer;
+        }
+        .shutter-btn li.prev {
+          left: 20px;
+          background: url(../static/images/shutter_prevBtn.png) no-repeat 0 -49px;
+        }
+        .shutter-btn li.next {
+          right: 20px;
+          background: url(../static/images/shutter_nextBtn.png) no-repeat 0 -49px;
+        }
+        .shutter-desc {
+          position: absolute;
+          z-index: 2;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 36px;
+          background: url(../static/images/shutter_shadow.png) repeat;
+        }
+        .shutter-desc p {
+          padding-left: 20px;
+          line-height: 36px;
+          color: #fff;
+          font-size: 14px;
+        }
+
+        .news {
+            width: 100%;
+        }
+
+        .news_head,.superman_head {
+            width: 1000px;
+            height: 40px;
+            margin: 20px auto;
+        }
+
+        .color {
+            display: inline-block;
+            float: left;
+            background-color: orange;
+            width: 5px;
+            height: 40px;
+        }
+        .news_head h2{
+            display: inline-block;
+            float: left;
+            margin-left: 10px;
+        }
+
+        .superman_head h2{
+            display: inline-block;
+            float: left;
+            margin-left: 10px;
+        }
+
+        .new_content,.super_content {
+            width: 1000px;
+            height: 160px;
+            margin: 10px auto;
+        }
+
+        .new_sign,.super_sign {
+            display: inline-block;
+            float: left;
+            width: 300px;
+            height: 40px;
+            margin-left: 33px;
+            text-decoration: none;
+
+        }
+        .super_sign {
+            text-align: center;
+        }
+
+       .title{
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+            color: dimgray;
+            font-size: larger;
+        }
+      .info {
+            margin-top: 10px;
+            width: 300px;
+            line-height: 26px;
+            color: black;
+        }
+        .moreinfo {
+          text-decoration: none;
+          color: red;
+        }
+
+        .superimg {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+
+        }
+
+
+    </style>
+</head>
+
+<body onload="init()">
+<div class="head">
+    <div class="head-content">
+        <a class="logo"href="#"></a>
+
+
+        <div class="action-menu">
+            <a href="#" class="a active">大湾首页</a>
+            <a href="/video-0-0-0.html" class="a">村民社区</a>
+            <a href="/test/" class="a">干部团队</a>
+            <a href="#" class="a">村民就业</a>
+            <a href="#" class="a">村民问题</a>
+            <a href="#" class="a">关于我们</a>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="shutter">
+<div class="shutter-img">
+    {% for row in img_list %}
+        <a href="{{ row.href }}" data-shutter-title="{{ row.name }}"><img src="/{{ row.img }}" alt="#"></a>
+    {% endfor %}
+</div>
+<ul class="shutter-btn">
+  <li class="prev"></li>
+  <li class="next"></li>
+</ul>
+<div class="shutter-desc">
+  <p>Iron Man</p>
+</div>
+</div>
+
+<div class="news">
+
+    <div class="news_head">
+        <div class="color"></div>
+        <h2>最新公告</h2>
+    </div>
+    <div class="new_content" >
+
+            {% for row in new_list %}
+                <div class="new_sign">
+                    <div class="title">{{ row.name }}</div>
+                    <div id="content" class="info adda">{{ row.summary }}</div>
+                </div>
+            {% endfor %}
+    </div>
+</div>
+
+<div class="superman">
+    <div class="superman_head">
+        <div class="color"></div>
+        <h2>干部团队</h2>
+    </div>
+    <div class="super_content">
+        {% for row in superman_list %}
+            <a class="super_sign" href="#">
+                <img class="superimg" src="/{{row.img }}" alt="">
+                <div class="title">{{ row.name }}</div>
+                <div class="info">{{ row.summary }}</div>
+            </a>
+        {% endfor %}
+    </div>
+
+</div>
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/velocity.js"></script>
+<script src="/static/js/shutter.js"></script>
+<script>
+    $(function () {
+      $('.shutter').shutter({
+        shutterW: 1000, // 容器宽度
+        shutterH: 358, // 容器高度
+        isAutoPlay: true, // 是否自动播放
+        playInterval: 2000, // 自动播放时间
+        curDisplay: 3, // 当前显示页
+        fullPage: false // 是否全屏展示
+      });
+    });
+
+
+    function init(){
+            $('.adda').each(function (index,ele) {
+                console.log(ele)
+                var len = 60;      //默认显示字数
+                var content = $(ele).html();
+                console.log(content);
+                var span = document.createElement("div");     //创建<span>元素
+                var a = document.createElement("a");           //创建<a>元素
+                span.innerHTML = content.substring(0,len);     //span里的内容为content的前len个字符
+                a.innerHTML = "查看更多";
+                a.className = "moreinfo";
+                //a.innerHTML = content.length>len?"查看更多":"";  //判断显示的字数是否大于默认显示的字数
+                //   来设置a的显示
+                a.href = "javascript:void(0)";
+                //a.onclick = function(){
+                    //if(a.innerHTML.indexOf("展开")>0){      //如果a中含有"展开"则显示"收起"
+                      //a.innerHTML = "<<&nbsp;收起";
+                      //span.innerHTML = content;
+                    //}else{
+                        //a.innerHTML = "... 展开";
+                        //span.innerHTML = content.substring(0,len);
+                    //}
+                //}
+                ele.innerHTML = "";
+                ele.appendChild(span);
+                ele.appendChild(a);
+            });
+         }
+
+    $('.a').each(function (index,ele) {
+
+        $(ele).click(function () {
+            console.log(ele)
+            $(ele).addClass('active')
+            $(ele).siblings().removeClass('active')
+        })
+    })
+</script>
+
+</body>
+</html>

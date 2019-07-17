@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全家大湾</title>
+
+    {% block styles %}
+
+    {% endblock %}
+
+    <style>
+        * { margin: 0; padding: 0; }
+        body{background-color: white}
+        html {
+            background-color: white;
+        }
+
+        .head {
+            width: 100%;
+            height: 60px;
+            background-color: #2459a2;
+        }
+        .head-content{
+            width: 1016px;
+            /*background-color: darkgoldenrod;*/
+            line-height: 60px;
+            /*通过设置margin让这个盒子在父盒子居中*/
+            margin: 0 auto;
+            /*border: white solid 1px;*/
+
+        }
+        .head-content .logo{
+            /*设置成inline-block可以设置a标签的长宽*/
+            display: inline-block;
+            /*设置背景图片*/
+            background: url("/static/images/logo/logo.png");
+            width: 121px;
+            height: 60px;
+            float: left;
+            /*居中用margin调一下*/
+            {#margin-top: 11px;#}
+        }
+        .head-content .action-menu{
+            display: inline-block;
+            float: left;
+            margin-left: 100px;
+        }
+
+        .head-content .action-menu a{
+            text-decoration: none;
+            display: inline-block;
+            float: left;
+            color: #d1d1d1;
+            padding: 0 16px 0 13px;
+            /*background-color: brown;*/
+            /*margin-left: -3px;*/
+            /*border: 1px white solid;*/
+
+        }
+        /*悬浮状态设置*/
+        .action-menu a.a:hover{
+            background-color: #5689ff;
+            color: white;
+        }
+
+         .action-menu a.active,.head-content .action-menu a.active:hover{
+            color: white;
+            background-color: #173896;
+        }
+
+        .head-content .action-menu a.active {
+            color: white;
+            background-color: #173896;
+        }
+
+
+        {#----------------------head部分结束----------------#}
+
+        .condition a{
+            display: inline-block;
+            border: 1px solid #dddddd;
+            padding: 5px 8px;
+            text-decoration: none;
+            color: dimgray;
+        }
+        .condition .choose {
+            background-color: #5689ff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="head">
+    <div class="head-content">
+        <a class="logo"href="#"></a>
+
+
+        <div class="action-menu">
+            <a href="/header/" class="a">大湾首页</a>
+            <a href="/video-0-0-0.html" class="a active">村民社区</a>
+            <a href="test/" class="a">干部团队</a>
+            <a href="#" class="a">村民就业</a>
+            <a href="#" class="a">村民问题</a>
+            <a href="#" class="a">关于我们</a>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="condition">
+    <h1>筛选</h1>
+    <div>
+        {% if kwargs.classification_id == 0 %}
+            <a class="choose" href="/video-0-{{ kwargs.level_id }}-{{ kwargs.status }}.html">全选</a>
+            {% else %}
+            <a  href="/video-0-{{ kwargs.level_id }}-{{ kwargs.status }}.html">全选</a>
+        {% endif %}
+        {% for item in class_list %}
+            {% if item.id == kwargs.classification_id %}
+            <a class="choose" href="/video-{{ item.id }}-{{ kwargs.level_id }}-{{ kwargs.status }}.html">{{ item.name }}</a>
+                {% else %}
+                <a href="/video-{{ item.id }}-{{ kwargs.level_id }}-{{ kwargs.status }}.html">{{ item.name }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div>
+        {% if kwargs.level_id == 0 %}
+            <a class="choose" href="/video-{{ kwargs.classification_id }}-0-{{ kwargs.status }}.html">全选</a>
+            {% else %}
+            <a href="/video-{{ kwargs.classification_id }}-0-{{ kwargs.status }}.html">全选</a>
+        {% endif %}
+        {% for item in level_list %}
+            {% if item.id == kwargs.level_id %}
+            <a class="choose" href="/video-{{ kwargs.classification_id }}-{{item.id }}-{{ kwargs.status }}.html">{{ item.title }}</a>
+                {% else %}
+                <a href="/video-{{ kwargs.classification_id }}-{{item.id }}-{{ kwargs.status }}.html">{{ item.title }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div>
+        {% if kwargs.status == 0 %}
+            <a class="choose" href="/video-{{ kwargs.classification_id }}-{{ kwargs.level_id }}-0.html">全选</a>
+            {% else %}
+            <a href="/video-{{ kwargs.classification_id }}-{{ kwargs.level_id }}-0.html">全选</a>
+        {% endif %}
+        {% for item in status_list %}
+            {% if item.id == kwargs.status %}
+            <a class="choose" href="/video-{{ kwargs.classification_id }}-{{ kwargs.level_id }}-{{ item.id }}.html">{{ item.name }}</a>
+            {% else %}
+                <a href="/video-{{ kwargs.classification_id }}-{{ kwargs.level_id }}-{{ item.id }}.html">{{ item.name }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+<div>
+    <h1>结果</h1>
+    <div>
+        {% for row in vedio_list %}
+            <div>{{ row.title }}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="/static/js/jquery.min.js"></script>
+<script>
+    $('.a').each(function (index,ele) {
+
+        $(ele).click(function () {
+            console.log(ele)
+            $(ele).addClass('active')
+            $(ele).siblings().removeClass('active')
+        })
+    })
+</script>
+
+</head>
+</body>
