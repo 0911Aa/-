@@ -151,12 +151,23 @@
 
 {% endblock %}
 
+{% block head %}
+    <div class="action-menu">
+        <a href="/header" class="a active">大湾首页</a>
+        <a href="/video-0-0-0.html" class="a">村民社区</a>
+        <a href="/test/" class="a">干部团队</a>
+        <a href="/vedio2-0-0-0.html" class="a">村民就业</a>
+        <a href="/imgs" class="a">村民问题</a>
+        <a href="#" class="a">关于我们</a>
+    </div>
+{% endblock %}
+
 {% block content %}
 {#     {{ block.super }}#}
 <div class="shutter">
 <div class="shutter-img">
     {% for row in img_list %}
-        <a href="{{ row.href }}" data-shutter-title="{{ row.name }}"><img src="{{ row.img }}" alt="#"></a>
+        <a href="{{ row.href }}" data-shutter-title="{{ row.name }}"><img src="/{{ row.img }}" alt="#"></a>
     {% endfor %}
 </div>
 <ul class="shutter-btn">
@@ -193,7 +204,7 @@
     <div class="super_content">
         {% for row in superman_list %}
             <a class="super_sign" href="#">
-                <img class="superimg" src="{{row.img }}" alt="">
+                <img class="superimg" src="/{{row.img }}" alt="">
                 <div class="title">{{ row.name }}</div>
                 <div class="info">{{ row.summary }}</div>
             </a>
@@ -202,10 +213,9 @@
 
 </div>
 
-<script src="/static/js/jquery.min.js"></script>
-<script src="/static/js/velocity.js"></script>
-<script src="/static/js/shutter.js"></script>
-<script>
+{% endblock %}
+{% block js %}
+    <script>
     $(function () {
       $('.shutter').shutter({
         shutterW: 1000, // 容器宽度

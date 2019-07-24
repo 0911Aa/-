@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>全家大湾</title>
+{% extends "base.html" %}
+{% load staticfiles %}
 
     {% block styles %}
-
-    {% endblock %}
-
     <style>
         * { margin: 0; padding: 0; }
         body{background-color: white}
@@ -88,26 +82,19 @@
             color: white;
         }
     </style>
-</head>
-<body>
-
-<div class="head">
-    <div class="head-content">
-        <a class="logo"href="#"></a>
-
-
+    {% endblock %}
+    {% block head %}
         <div class="action-menu">
-            <a href="/header/" class="a">大湾首页</a>
-            <a href="/video-0-0-0.html" class="a active">村民社区</a>
-            <a href="test/" class="a">干部团队</a>
+            <a href="/header" class="a">大湾首页</a>
+            <a href="/video-0-0-0.html" class="a  active">村民社区</a>
+            <a href="/test/" class="a">干部团队</a>
             <a href="/vedio2-0-0-0.html" class="a">村民就业</a>
-            <a href="#" class="a">村民问题</a>
+            <a href="/imgs" class="a">村民问题</a>
             <a href="#" class="a">关于我们</a>
         </div>
+    {% endblock %}
 
-    </div>
-
-</div>
+    {% block content %}
 
 <div class="condition">
     <h1>筛选</h1>
@@ -163,17 +150,5 @@
     </div>
 </div>
 
-<script src="/static/js/jquery.min.js"></script>
-<script>
-    $('.a').each(function (index,ele) {
 
-        $(ele).click(function () {
-            console.log(ele)
-            $(ele).addClass('active')
-            $(ele).siblings().removeClass('active')
-        })
-    })
-</script>
-
-</head>
-</body>
+{% endblock %}

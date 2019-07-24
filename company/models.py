@@ -117,6 +117,18 @@ class Vedio(models.Model):
     def __str__(self):
         return self.title
 
+class Imgs(models.Model):
+
+    src = models.ImageField(upload_to="static/images/upload",verbose_name="图片路径")
+    name = models.CharField(max_length=32,verbose_name="名字")
+    summary = models.CharField(max_length=200,verbose_name="简介")
+
+    class Meta:
+        verbose_name_plural = "大湾靓图表"
+
+    def __str__(self):
+        return self.name
+
 
 
 

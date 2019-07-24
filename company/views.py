@@ -1,13 +1,13 @@
 from django.shortcuts import render,HttpResponse
 from company import models
-
+import json
 # Create your views here.
 
 def header(request):
     img_list = models.Images.objects.filter(status=1)
     new_list = models.News.objects.filter(status=1)
     superman_list = models.Superman.objects.filter(status=1)
-    return render(request,'header.html',
+    return render(request,'header1.html',
                   {'img_list':img_list,
                   'new_list':new_list,
                    'superman_list':superman_list,
@@ -127,3 +127,14 @@ def video2(request,*args,**kwargs):
                       "level_list":level_list,
                       "vedio_list":vedio_list,
                   })
+
+def img(request):
+    return render(request,"imgs.html")
+
+def get_img(request):
+    img_obj = models.Imgs.objects.values("id","src","name","summary")
+    print(img_obj)  #是一个QuerySet列表，里面元素是字典
+    img_list = list(img_obj)
+    print(img_list)  #就是一个列表，里面元素和QuerySet中一样
+    ret = {"status":True,"data":img_list}
+    return HttpResponse(json.dumps(ret))

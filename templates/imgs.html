@@ -1,0 +1,120 @@
+
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block styles %}
+    <style>
+        .img_content {
+            width: 1000px;
+            margin: 0 auto;
+        }
+
+        .img_content .item {
+            width: 25%;
+            float: left;
+        }
+
+        .item img{
+            width: 100%;
+        }
+
+        .item div{
+            border: white 5px solid;
+        }
+    </style>
+{% endblock %}
+
+{% block head %}
+    <div class="action-menu">
+        <a href="/header" class="a">大湾首页</a>
+        <a href="/video-0-0-0.html" class="a">村民社区</a>
+        <a href="/test/" class="a">干部团队</a>
+        <a href="/vedio2-0-0-0.html" class="a">村民就业</a>
+        <a href="/imgs" class="a active">村民问题</a>
+        <a href="#" class="a">关于我们</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="img_content" id="imgs_con">
+        <div class="item">
+        </div>
+        <div class="item">
+        </div>
+        <div class="item">
+        </div>
+        <div class="item">
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="/static/js/jquery.min.js"></script>
+    <script>
+    $(function () {
+        var scrollImg = new ScrollImg();
+        scrollImg.init_img();
+        scrollImg.scrollEvent();
+    });
+
+    function ScrollImg(){
+        this.nid = 0;
+        this.lastposion = -1;
+
+        this.init_img = function () {
+            var that = this;
+            $.ajax({
+            url:'/get_img/',
+            type:"GET",
+            data:{"nid":that.nid},
+            dataType:"JSON",
+
+            success:function (args) {
+                img_list = args.data;
+                $.each(img_list,function (index, value) {
+                    //console.log(index,value);
+                    //var eqv = index%4;
+                    eqv = (index+that.lastposion+1)%4;
+                    console.log(eqv)
+                    var tag = document.createElement("div");
+                    var imgs = document.createElement("img");
+                    var txt = document.createElement("div");
+                    var summa = document.createElement("div");
+                    imgs.src = "/"+value.src;
+                    txt.innerText = value.name;
+                    summa.innerText = value.summary;
+                    $(tag).append(imgs);
+                    $(tag).append(txt);
+                    $(tag).append(summa);
+                    $("#imgs_con").children().eq(eqv).append(tag);
+
+                    //判断循环到最后一张图片时，把图片id赋值给nid
+                    if(index+1 == img_list.length){
+                        //that.nid = value.id;  因为数据库图片不够，暂时注释掉
+                        that.lastposion = eqv;
+                    }
+                })
+            }
+        })
+        }
+
+        this.scrollEvent = function () {
+            var that = this;
+            $(window).scroll(function () {
+                //窗口高度，就是浏览器窗口界面的高度
+                var winHeight = $(window).height();
+                //文本高度，就是body的高度
+                var docHeight = $(document).height();
+                //滑轮滑动的距离
+                var scrollTop = $(window).scrollTop();
+                //如果滑动的距离加上窗口高度等于文本高度，说明滑到底了
+                if(scrollTop+winHeight == docHeight){
+                    that.init_img();
+                }
+                })
+        }
+    }
+
+    </script>
+{% endblock %}

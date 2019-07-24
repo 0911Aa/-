@@ -20,6 +20,8 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('imgs/',views.img),
+    path("get_img/",views.get_img),
     path('header/',views.header),
     path('test/',views.test),
     re_path(r'^video-(?P<classification_id>(\d+))-(?P<level_id>(\d+))-(?P<status>(\d+)).html$', views.video),

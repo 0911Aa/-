@@ -83,15 +83,8 @@
     <div class="head-content">
         <a class="logo"href="#"></a>
 
-
-        <div class="action-menu">
-            <a href="#" class="a active">大湾首页</a>
-            <a href="video-0-0-0.html" class="a">村民社区</a>
-            <a href="test/" class="a">干部团队</a>
-            <a href="#" class="a">村民就业</a>
-            <a href="#" class="a">村民问题</a>
-            <a href="#" class="a">关于我们</a>
-        </div>
+        {% block head %}
+        {% endblock %}
 
     </div>
 
@@ -101,16 +94,26 @@
 
         {% endblock %}
 <script src="/static/js/jquery.min.js"></script>
-<script>
-    $('.a').each(function (index,ele) {
+<script src="/static/js/velocity.js"></script>
+<script src="/static/js/shutter.js"></script>
+    {% block js %}
+        <script>
 
-        $(ele).click(function () {
-            console.log(ele)
-            $(ele).addClass('active')
-            $(ele).siblings().removeClass('active')
+
+        $(function () {
+           addcolor();
+        });
+        function addcolor(){
+                $('.a').each(function (index,ele) {
+
+            $(ele).click(function () {
+                console.log(ele);
+                $(ele).addClass('active');
+                $(ele).siblings().removeClass('active')
+            })
         })
-    })
-</script>
-
+        }
+        </script>
+    {% endblock %}
 </body>
 </html>

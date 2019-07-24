@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-{#  <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
-{#  <meta http-equiv="X-UA-Compatible" content="ie=edge">#}
-  <title>Document</title>
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block styles %}
   <style>
     #content {
       width: 500px;
@@ -16,14 +13,30 @@
       color: red;
     }
   </style>
-</head>
-<body onload="init()">
+{% endblock %}
+
+
+{% block head %}
+    <div class="action-menu">
+        <a href="/header" class="a">大湾首页</a>
+        <a href="/video-0-0-0.html" class="a">村民社区</a>
+        <a href="/test/" class="a active">干部团队</a>
+        <a href="/vedio2-0-0-0.html" class="a">村民就业</a>
+        <a href="/imgs" class="a">村民问题</a>
+        <a href="#" class="a">关于我们</a>
+    </div>
+{% endblock %}
+
+{% block content %}
   <div id="content">
       2005年以后，互联网进入Web2.0时代，各种类似桌面软件的Web应用大量涌现，网站的前端由此发生了翻天覆地的变化。网页不再只是承载单一的文字和图片，各种富媒体让网页的内容更加生动，网页上软件化的交互形式为用户提供了更好的使用体验，这些都是基于前端技术实现的。以前会Photoshop和Dreamweaver就可以制作网页，现在只掌握这些已经远远不够了。
   </div>
+{% endblock %}
 
+{% block js %}
   <script>
-     function init(){
+  $(function () {
+      function init(){
         var len = 60;      //默认显示字数
         var ctn = document.getElementById("content");  //获取div对象
         var content = ctn.innerHTML;                   //获取div里的内容
@@ -50,6 +63,7 @@
         ctn.appendChild(span);
         ctn.appendChild(a);
      }
+  })
+
   </script>
-</body>
-</html>
+{% endblock %}
